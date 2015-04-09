@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<metamorph xmlns="http://www.culturegraph.org/metamorph" version="1">
+
+
+	<rules>
+
+		<data source="001" name="@id" />
+
+		<data name="id" source="@id"  />
+
+		<data source="_id" name="recordtype">
+			<constant value="marc"/>
+		</data>
+
+		<entity name="language[]" flushWith="record">
+			<combine  name="" value="${singleValues}"   >
+				<data source="0410 .a|041  .a" name="singleValues">
+					<blacklist>
+						<entry name="und"/>
+						<entry name="||"/>
+					</blacklist>
+				</data>
+
+			</combine>
+			<data source="008" >
+				<substring start="35" end="38"/>
+				<blacklist>
+					<entry name="und"/>
+					<entry name="||"/>
+				</blacklist>
+
+			</data>
+
+		</entity>
+
+	</rules>
+
+</metamorph>
