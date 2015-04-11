@@ -2,6 +2,29 @@
 
 <metamorph xmlns="http://www.culturegraph.org/metamorph" version="1">
 
+	<macros>
+		<macro name="make080CategoriesAllSubX" >
+			<concat name="$[out]"
+					 delimiter=""
+					    flushWith="080*a" sameEntity="false" reset="false">
+
+				<data source="080*.x" />
+
+			</concat>
+		</macro>
+
+		<macro name="make080CategoriesAllSubX1" >
+
+				<data source="080*.x"  name="$[out]"/>
+
+
+
+		</macro>
+
+
+
+	</macros>
+
 
 	<rules>
 
@@ -47,30 +70,55 @@
 
 
 
-
-			<combine name="@080Feld" value="${080a}${x1}${x2}${x3}" sameEntity="false" reset="false">
-				<data source="080*.a" name="080a"/>
-
-				<data source="080*.x" name="x1" >
-					<occurrence only="1"/>
-				</data>
-
-				<data source="080*.x" name="x2">
-					<occurrence only="2"/>
-				</data>
-
-				<data source="080*.x" name="x3">
-					<occurrence only="3"/>
-				</data>
-			</combine>
-
+		<call-macro name="make080CategoriesAllSubX1"   out="@valuesubX" />
 
 
 
 		<entity name="080Feld[]" flushWith="record">
-			<data source="@080Feld"/>
+
+			<if>
+				<data source="080*.a"/>
+			</if>
+
+
+			<combine name="" value="${o1}${o2}" reset="false">
+				<data source="080*.a" name="o1"/>
+				<data source="@valuesubX" name="o2" />
+			</combine>
+
+			<!--
+			<square name="" delimiter="">
+				<data source="080*.a" name="o1"/>
+				<data source="@valuesubX" name="o2" />
+			</square>
+			-->
+
 		</entity>
 
+
+		<entity name="testWithGroup[]" flushWith="record" sameEntity="false">
+
+			<data source="080*.a" name="080a"/>
+			<group>
+				<concat name="" delimiter="" >
+					<data source="080*.x"  />
+				</concat>
+			</group>
+
+		</entity>
+
+		<entity name="testWithGroupCombine[]"  sameEntity="false">
+
+			<combine name="" value="${o1}${o2}">
+				<data source="080*.a"  name="o1"/>
+				<group name="o2" >
+				<concat name="" delimiter="" reset="true">
+					<data source="080*.x"  />
+				</concat>
+				</group>
+			</combine>
+
+		</entity>
 
 
 	</rules>
