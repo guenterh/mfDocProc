@@ -45,27 +45,31 @@
 			<data source="912*.a" />
 		</entity>
 
-		<group name="@080Feld" >
 
+
+
+			<combine name="@080Feld" value="${080a}${x1}${x2}${x3}" sameEntity="false" reset="false">
 				<data source="080*.a" name="080a"/>
 
-				<data source="080*.x" name="080x1">
+				<data source="080*.x" name="x1" >
 					<occurrence only="1"/>
 				</data>
-				<data source="080*.x" name="080x2">
+
+				<data source="080*.x" name="x2">
 					<occurrence only="2"/>
 				</data>
-				<data source="080*.x" name="080x3">
+
+				<data source="080*.x" name="x3">
 					<occurrence only="3"/>
 				</data>
+			</combine>
 
-		</group>
 
-		<entity name="classif_udc[]" flushWith="record">
 
-				<data source="@080Feld" />
+
+		<entity name="080Feld[]" flushWith="record">
+			<data source="@080Feld"/>
 		</entity>
-
 
 
 
