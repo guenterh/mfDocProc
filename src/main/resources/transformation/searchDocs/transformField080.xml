@@ -7,43 +7,24 @@
 			<concat name="$[out]"
 					 delimiter=""
 					    flushWith="080*a" sameEntity="false" reset="false">
-
 				<data source="080*.x" />
-
 			</concat>
 		</macro>
-
 		<macro name="make080CategoriesAllSubX1" >
-
 				<data source="080*.x"  name="$[out]"/>
-
-
-
 		</macro>
-
-
-
 	</macros>
-
-
 	<rules>
-
-
 
 		<entity name="080Feldconcat[]"  flushWith="record">
 
 			<if>
 				<data source="080*.a"/>
 			</if>
-
 			<concat name="" delimiter=""   sameEntity="true"  reset="true">
 					<data source="080*.a|080*.x" />
-
 			</concat>
-
 		</entity>
-
-
 
 
 		<entity name="080FeldconcatCombine[]"  flushWith="record">
@@ -62,9 +43,6 @@
 		</entity>
 
 		<entity name="080FeldconcatCombine1[]"  flushWith="record">
-
-
-
 			<combine name="" value="${ta}${tx}"     reset="true">
 				<data source="080*.a" name="ta" />
 				<concat name="tx" delimiter=""     reset="false">
@@ -72,47 +50,10 @@
 				</concat>
 			</combine>
 
-
 		</entity>
 
 
 
-		<!--
-
-		<entity name="080FeldAt[]" >
-
-			<if>
-				<all >
-					<data source="@080a"/>
-					<data source="@080x"/>
-				</all>
-			</if>
-
-			<concat name="" delimiter="" flushWith="080*.a"  reset="false">
-				<data source="@080a" />
-				<data source="@080x"  />
-			</concat>
-
-		</entity>
-
-		-->
-
-		<!--
-
-		<entity name="080Feldcombine[]" flushWith="080*.x">
-
-
-			<combine name=""  value="${o1}${o2}"  sameEntity="true">
-				<data source="080*.a" name="o1"/>
-				<data source="080*.x" name="o2" />
-
-
-			</combine>
-
-
-
-		</entity>
-		-->
 	</rules>
 
 </metamorph>

@@ -1,0 +1,13 @@
+
+
+	in Json encodiert
+	{"recordtype":"marc","id":"318618583","language":["eng","fre"]}
+
+
+	in Formeta encodiert
+	{recordtype:marc,id:318618583,language[]{008:eng,:fre}}
+
+-> mit JSON erhalte ich Listen, das brauche ich für DoCProc
+
+956:B -> Netzwerkcode
+956:a	->	Institutionencode
