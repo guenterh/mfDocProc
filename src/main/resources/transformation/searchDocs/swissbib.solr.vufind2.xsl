@@ -45,12 +45,16 @@
     <xsl:template match="/">
         <doc>
 
+
+            <!--
             <xsl:call-template name="id_type">
                 <xsl:with-param name="fragment" select="record"/>
             </xsl:call-template>
             <xsl:call-template name="lang_country">
                 <xsl:with-param name="fragment" select="record" />
             </xsl:call-template>
+
+            -->
             <xsl:call-template name="classifications">
                 <xsl:with-param name="fragment" select="record" />
             </xsl:call-template>
@@ -296,68 +300,21 @@
         CALLED NAMED TEMPLATES
         ======================-->
 
-    <xsl:template name="id_type">
-        <xsl:param name="fragment" />
-        <field name="id">
-            <xsl:value-of select="$fragment/myDocID" />
-        </field>
-        <field name="recordtype">marc</field>
-    </xsl:template>
 
-    <!-- codes: language / country of origin of publication -->
-    <xsl:template name="lang_country">
-        <xsl:param name="fragment" />
-        <xsl:variable name="forDeduplication">
-            <!-- remove undefined values (|||, und) from index -->
-            <xsl:for-each select="$fragment/datafield[@tag='041']/subfield[@code='a']/text()">
-                <xsl:choose>
-                    <xsl:when test="matches(., '\|\|\||und')" />
-                    <xsl:when test="string-length(.) &gt; 3" />
-                    <xsl:otherwise>
-                        <xsl:value-of select="concat(., '##xx##')" />
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:for-each>
-            <xsl:for-each select="$fragment/controlfield[@tag='008']">
-				<xsl:variable name="lang" select="substring(text()[1],36,3)"/>
-				<xsl:choose>
-				    <xsl:when test="matches($lang, '\|\|\||und')" />
-				    <xsl:otherwise>
-				        <xsl:value-of select="concat($fragment/substring(controlfield[@tag='008'][1],36,3), '##xx##')" />
-				    </xsl:otherwise>
-				</xsl:choose>		                
-            </xsl:for-each>
-        </xsl:variable>
-        <xsl:variable name="uniqueSeqValues" select="swissbib:startDeduplication($forDeduplication)"/>
-        <xsl:call-template name="createUniqueFields">
-            <xsl:with-param name="fieldname" select="'language'" />
-            <xsl:with-param name="fieldValues" select ="$uniqueSeqValues" />
-        </xsl:call-template>
-        <xsl:variable name="forDeduplication">
-            <xsl:for-each select="$fragment/controlfield[@tag='008']">
-                <xsl:value-of select="concat(substring(text(),16,3), '##xx##')" />
-            </xsl:for-each>
-            <xsl:for-each select="$fragment/datafield[@tag='044']/subfield[@code='a']/text()">
-                <xsl:value-of select="concat(., '##xx##')" />
-            </xsl:for-each>
-        </xsl:variable>
-        <xsl:variable name="uniqueSeqValues" select="swissbib:startDeduplication($forDeduplication)"/>
-        <xsl:call-template name="createUniqueFields">
-            <xsl:with-param name="fieldname" select="'origcountry_isn_mv'"/>
-            <xsl:with-param name="fieldValues" select="$uniqueSeqValues"/>
-        </xsl:call-template>
-    </xsl:template>
-    
     <!-- classifications -->
     <xsl:template name="classifications">
         <xsl:param name="fragment" />
+
         <!-- subject category codes (MARC field 072) -->
+        <!-- todo: wie kann ich Namen über Variablen definieren
         <xsl:for-each select="$fragment/datafield[@tag='072']/subfield[@code='a']">
             <xsl:variable name="source" select="following-sibling::subfield[@code='2']/text()" />
             <field name="{concat('classif_', $source)}">
                 <xsl:value-of select="." />
             </field>
+
         </xsl:for-each>
+        -->
         <!-- local category codes (MARC field 912) -->
         <xsl:for-each select="$fragment/datafield[@tag='912']/subfield[@code='a']">
             <field name="classif_912">

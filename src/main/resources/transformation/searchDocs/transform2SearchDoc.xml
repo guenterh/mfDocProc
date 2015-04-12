@@ -72,6 +72,10 @@
 
 		<call-macro name="make080CategoriesAllSubX1"   out="@valuesubX" />
 
+		<entity flushWith="080*.a"  name="myConcat[]" reset="true">
+			<data name="" source="080*.a|080*.x|080*.b" />
+
+		</entity>
 
 
 		<entity name="080Feld[]" flushWith="record">
@@ -92,6 +96,36 @@
 				<data source="@valuesubX" name="o2" />
 			</square>
 			-->
+
+		</entity>
+
+
+		<entity name="mitInnerCombine[]" flushWith="record">
+			<combine name=""
+					 value="${a}${x}"
+					 flushWith="080*.x" reset="true">
+
+				<combine name="a" value="${value}" reset='false'>
+					<data source="080*.a" name="value"/>
+					<!--<data source="080*.x" />-->
+				</combine>
+
+				<combine name="x" value="${allX}">
+					<data source="080*.x" name="allX" >
+						<buffer flushWith="080*.a"/>
+					</data>
+				</combine>
+
+			</combine>
+		</entity>
+		<entity name="onlyX[]" >
+				<combine name="aa" value="${a}${x}">
+					<data source="080*.a" name="a"/>
+					<data source="080*.x" name="x">
+						<buffer flushWith="080*.a" />
+					</data>
+				</combine>
+			<!--</combine> -->
 
 		</entity>
 
@@ -119,7 +153,7 @@
 			</combine>
 
 		</entity>
-
+		<!--<data source="_else"/>-->
 
 	</rules>
 

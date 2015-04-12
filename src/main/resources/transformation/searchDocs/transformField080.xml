@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<metamorph xmlns="http://www.culturegraph.org/metamorph" version="1">
+
+	<macros>
+		<macro name="make080CategoriesAllSubX" >
+			<concat name="$[out]"
+					 delimiter=""
+					    flushWith="080*a" sameEntity="false" reset="false">
+
+				<data source="080*.x" />
+
+			</concat>
+		</macro>
+
+		<macro name="make080CategoriesAllSubX1" >
+
+				<data source="080*.x"  name="$[out]"/>
+
+
+
+		</macro>
+
+
+
+	</macros>
+
+
+	<rules>
+
+
+
+		<entity name="080Feldconcat[]"  flushWith="record">
+
+			<if>
+				<data source="080*.a"/>
+			</if>
+
+			<concat name="" delimiter=""   sameEntity="true"  reset="true">
+					<data source="080*.a|080*.x" />
+
+			</concat>
+
+		</entity>
+
+
+
+
+		<entity name="080FeldconcatCombine[]"  flushWith="record">
+
+			<concat name="@allX" delimiter=""     reset="true">
+				<data source="080*.x" />
+			</concat>
+
+
+			<combine name="" value="${ta}${tx}"    flushWith="080*.a" reset="false">
+				<data source="@allX" name="tx"/>
+				<data source="080*.a" name="ta"/>
+			</combine>
+
+
+		</entity>
+
+		<entity name="080FeldconcatCombine1[]"  flushWith="record">
+
+
+
+			<combine name="" value="${ta}${tx}"     reset="true">
+				<data source="080*.a" name="ta" />
+				<concat name="tx" delimiter=""     reset="false">
+					<data source="080*.x" />
+				</concat>
+			</combine>
+
+
+		</entity>
+
+
+
+		<!--
+
+		<entity name="080FeldAt[]" >
+
+			<if>
+				<all >
+					<data source="@080a"/>
+					<data source="@080x"/>
+				</all>
+			</if>
+
+			<concat name="" delimiter="" flushWith="080*.a"  reset="false">
+				<data source="@080a" />
+				<data source="@080x"  />
+			</concat>
+
+		</entity>
+
+		-->
+
+		<!--
+
+		<entity name="080Feldcombine[]" flushWith="080*.x">
+
+
+			<combine name=""  value="${o1}${o2}"  sameEntity="true">
+				<data source="080*.a" name="o1"/>
+				<data source="080*.x" name="o2" />
+
+
+			</combine>
+
+
+
+		</entity>
+		-->
+	</rules>
+
+</metamorph>
