@@ -47,6 +47,15 @@
 		</entity>
 
 
+		<entity name="NameAlternativesNico" flushWith="record" >
+			<data source="050*.a" name="id"/>
+			<combine name="name" value="${surname}${forename}" flushWith="110??" reset="true">
+				<data source="110??.a" name="surname"/>
+				<data source="110??.d" name="forename"/>
+			</combine>
+		</entity>
+
+
 	</rules>
 
 </metamorph>

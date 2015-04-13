@@ -53,6 +53,18 @@
 		</entity>
 
 
+		<!--<entity name="080NicoEntity[]" flushWith="080??">-->
+		<!--Recursion am Anfang-->
+		<concat name="@080" delimiter="" flushWith="080??" reset="true" >
+			<data source="080??.a" />
+			<data source="080??.x" />
+		</concat>
+		<!--The rule-->
+		<concat name="080FeldconcatNico" delimiter=", " >
+			<data source="@080" />
+		</concat>
+
+		<!--</entity> -->
 
 	</rules>
 
