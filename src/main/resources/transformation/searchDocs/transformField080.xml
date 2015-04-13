@@ -66,6 +66,13 @@
 
 		<!--</entity> -->
 
+		<entity name="080FeldconcatNico2[]" flushWith="record">
+			<combine name="" value="${080}" >
+				<data source="@080" name="080"/>
+			</combine>
+		</entity>
+
+
 	</rules>
 
 </metamorph>
