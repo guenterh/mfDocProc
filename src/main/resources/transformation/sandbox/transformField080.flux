@@ -1,5 +1,5 @@
 //default file = FLUX_DIR + "correctMarcXML.xml";
-default file = FLUX_DIR + "data/classif_912Test.xml";
+default file = FLUX_DIR + "data/classif_udc.xml";
 
 file|
 open-file|

@@ -315,28 +315,32 @@
 
         </xsl:for-each>
         -->
-        <!-- local category codes (MARC field 912) -->
-        <xsl:for-each select="$fragment/datafield[@tag='912']/subfield[@code='a']">
-            <field name="classif_912">
-                <xsl:value-of select="." />
-            </field>
-        </xsl:for-each>
         <!-- UDC fields, standard and non-standard (11.10.2012 / osc) -->
+        <!-- solved
         <xsl:for-each select="$fragment/datafield[@tag='080']/subfield[@code='a']">
             <field name="classif_udc">
                 <xsl:value-of select="concat(., following-sibling::subfield[@code='x'][1], following-sibling::subfield[@code='x'][2], following-sibling::subfield[@code='x'][3])" />
             </field>
         </xsl:for-each>
+        -->
+        <!--
         <xsl:for-each select="$fragment/datafield[@tag='690'][@ind2='7'][matches(descendant::subfield[@code='2'][1],'^snl local', 'i')]/subfield[@code='u']">
             <field name="classif_udc">
                 <xsl:value-of select="." />
             </field>            
         </xsl:for-each>
+
+        -->
+
+        <!--
+
         <xsl:for-each select="$fragment/datafield[@tag='909'][@ind2='7'][matches(descendant::subfield[@code='2'][1], 'sb_xxxx', 'i')]/subfield[@code='c']">
             <field name="classif_udc">
                 <xsl:value-of select="." />
             </field>
         </xsl:for-each>
+        -->
+
         <!-- DDC fields, standard and non-standard (11.10.2012 / osc) -->
         <xsl:for-each select="$fragment/datafield[@tag='082']/subfield[@code='a']">
             <field name="classif_ddc">

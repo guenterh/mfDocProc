@@ -3,25 +3,7 @@
 <metamorph xmlns="http://www.culturegraph.org/metamorph" version="1">
 
 	<macros>
-		<macro name="make080CategoriesAllSubX" >
-			<concat name="$[out]"
-					 delimiter=""
-					    flushWith="080*a" sameEntity="false" reset="false">
-
-				<data source="080*.x" />
-
-			</concat>
-		</macro>
-
-		<macro name="make080CategoriesAllSubX1" >
-
-				<data source="080*.x"  name="$[out]"/>
-
-
-
-		</macro>
-
-
+		<!-- define macros if needed -->
 
 	</macros>
 
@@ -70,89 +52,53 @@
 
 
 
-		<call-macro name="make080CategoriesAllSubX1"   out="@valuesubX" />
 
-		<entity flushWith="080*.a"  name="myConcat[]" reset="true">
-			<data name="" source="080*.a|080*.x|080*.b" />
+		<!-- UDC fields, standard and non-standard (11.10.2012 / osc) -->
 
-		</entity>
-
-
-		<entity name="080Feld[]" flushWith="record">
-
-			<if>
-				<data source="080*.a"/>
-			</if>
+		<!--Recursion at the beginning perhaps it might make sense to refactor all such recursions just at the beginning or into a seperate file-->
+		<!-- quetsions
+			- why indicators with ?? and not '*' - is there a differne in behaviour?
+		-->
+		<concat name="@080" delimiter="" flushWith="080??" reset="true" >
+			<data source="080??.a" />
+			<data source="080??.x" />
+		</concat>
 
 
-			<combine name="" value="${o1}${o2}" reset="false">
-				<data source="080*.a" name="o1"/>
-				<data source="@valuesubX" name="o2" />
+		<entity name="classif_udc[]" flushWith="record">
+			<combine name="" value="${080}" >
+				<data source="@080" name="080"/>
 			</combine>
 
-			<!--
-			<square name="" delimiter="">
-				<data source="080*.a" name="o1"/>
-				<data source="@valuesubX" name="o2" />
-			</square>
-			-->
-
-		</entity>
-
-
-		<entity name="mitInnerCombine[]" flushWith="record">
-			<combine name=""
-					 value="${a}${x}"
-					 flushWith="080*.x" reset="true">
-
-				<combine name="a" value="${value}" reset='false'>
-					<data source="080*.a" name="value"/>
-					<!--<data source="080*.x" />-->
-				</combine>
-
-				<combine name="x" value="${allX}">
-					<data source="080*.x" name="allX" >
-						<buffer flushWith="080*.a"/>
+			<combine name="" value="${690u}"  flushWith="690??" reset="true">
+				<if>
+					<data source="690?7.2">
+						<case to="lower"/>
+						<regexp match="^snl local"/>
 					</data>
-				</combine>
+
+				</if>
+				<data source="690?7.u" name="690u" />
 
 			</combine>
-		</entity>
-		<entity name="onlyX[]" >
-				<combine name="aa" value="${a}${x}">
-					<data source="080*.a" name="a"/>
-					<data source="080*.x" name="x">
-						<buffer flushWith="080*.a" />
+			<combine name="" value="${909c}" flushWith="909??" reset="true">
+				<if>
+					<data source="909?7.2">
+						<case to="lower"/>
+						<regexp  match="sb_xxxx" />
 					</data>
-				</combine>
-			<!--</combine> -->
-
-		</entity>
-
-
-		<entity name="testWithGroup[]" flushWith="record" sameEntity="false">
-
-			<data source="080*.a" name="080a"/>
-			<group>
-				<concat name="" delimiter="" >
-					<data source="080*.x"  />
-				</concat>
-			</group>
-
-		</entity>
-
-		<entity name="testWithGroupCombine[]"  sameEntity="false">
-
-			<combine name="" value="${o1}${o2}">
-				<data source="080*.a"  name="o1"/>
-				<group name="o2" >
-				<concat name="" delimiter="" reset="true">
-					<data source="080*.x"  />
-				</concat>
-				</group>
+				</if>
+				<data source="909?7.c" name="909c"/>
 			</combine>
 
+
 		</entity>
+
+
+
+
+
+
 		<!--<data source="_else"/>-->
 
 	</rules>
