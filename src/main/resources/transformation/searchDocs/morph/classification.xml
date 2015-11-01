@@ -88,4 +88,32 @@
 	</entity>
 
 
+	<entity name="classif_rvk[]" flushWith="084??" reset="true">
+		<if>
+			<data source="084??.2">
+				<case to="lower"/>
+				<equals string="rvk"/>
+			</data>
+		</if>
+		<data source="084??.a" />
+	</entity>
+
+	<entity name="classif_zdbs[]" flushWith="084??" reset="true">
+		<if>
+			<data source="084??.2">
+				<case to="lower"/>
+				<equals string="zdbs"/>
+			</data>
+		</if>
+		<data source="084??.a" />
+
+	</entity>
+
+	<entity name="classif_local[]" flushWith="record" reset="true">
+		<data source="691??.u" >
+			<unique part="value"/>
+		</data>
+	</entity>
+
+
 </rules>

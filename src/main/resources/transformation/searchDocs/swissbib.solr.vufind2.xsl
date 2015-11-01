@@ -319,33 +319,6 @@
             </field>
         </xsl:for-each>
 
-
-
-
-        <!-- RVK / ZDBS classifications  -->
-        <xsl:for-each select="$fragment/datafield[@tag='084']/subfield[@code='a']">
-            <xsl:if test="matches(following-sibling::subfield[@code='2'], 'rvk', 'i')">
-                <field name="classif_rvk">
-                    <xsl:value-of select="." />
-                </field>
-            </xsl:if>
-            <xsl:if test="matches(following-sibling::subfield[@code='2'], 'zdbs', 'i')">
-                <field name="classif_zdbs">
-                    <xsl:value-of select="." />
-                </field>
-            </xsl:if>
-        </xsl:for-each>
-        <!-- local classifications (without source code) -->
-        <xsl:variable name="forDeduplication">
-            <xsl:for-each select="$fragment/datafield[@tag='691']/subfield[@code='u']">
-                <xsl:value-of select="concat(., '##xx##')" />
-            </xsl:for-each>
-        </xsl:variable>
-        <xsl:variable name="uniqueSeqValues" select="swissbib:startDeduplication($forDeduplication)"/>
-        <xsl:call-template name="createUniqueFields">
-            <xsl:with-param name="fieldname" select="'classif_local'" />
-            <xsl:with-param name="fieldValues" select="$uniqueSeqValues"/>
-        </xsl:call-template>
     </xsl:template>
 
     <!-- JUS classifications -->
