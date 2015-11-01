@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<rules xmlns="http://www.culturegraph.org/metamorph">
+
+
+    <entity name="author[]" flushWith="record">
+
+
+        <data source="100??.a|700??.a|800??.a" >
+            <case to="lower"/>
+            <replace pattern="\[forme avant 2007\]" with=""/>
+        </data>
+
+
+        <combine name="" value="${v950a}" flushWith="950??.P"  sameEntity="true">
+            <if>
+                <data source="950??.P">
+                    <regexp match="100|700"/>
+                </data>
+            </if>
+
+            <data source="950??.a" name="v950a">
+                <case to="lower"/>
+                <replace pattern="\[forme avant 2007\]" with=""/>
+
+            </data>
+        </combine>
+
+        <data source="110??.a|710??.a|810??.a" >
+            <case to="lower"/>
+            <replace pattern="\[forme avant 2007\]" with=""/>
+
+        </data>
+
+        <combine name="" value="${v880a}" flushWith="880??.6" reset="true" sameEntity="true">
+            <if>
+                <data source="880??.6">
+                    <regexp match="110|710|810"/>
+                </data>
+            </if>
+
+            <data source="880??.a" name="v880a">
+                <case to="lower"/>
+                <replace pattern="\[forme avant 2007\]" with=""/>
+            </data>
+        </combine>
+
+        <combine name="" value="${v950a}" flushWith="950??.P"  sameEntity="true">
+            <if>
+                <data source="950??.P">
+                    <regexp match="110|710|810"/>
+                </data>
+            </if>
+
+            <data source="950??.a" name="v950a">
+                <case to="lower"/>
+                <replace pattern="\[forme avant 2007\]" with=""/>
+
+            </data>
+        </combine>
+
+
+
+    </entity>
+
+
+
+</rules>
