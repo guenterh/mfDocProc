@@ -45,16 +45,12 @@
     <xsl:template match="/">
         <doc>
 
-
-            <!--
             <xsl:call-template name="id_type">
                 <xsl:with-param name="fragment" select="record"/>
             </xsl:call-template>
             <xsl:call-template name="lang_country">
                 <xsl:with-param name="fragment" select="record" />
             </xsl:call-template>
-
-            -->
             <xsl:call-template name="classifications">
                 <xsl:with-param name="fragment" select="record" />
             </xsl:call-template>
@@ -75,9 +71,6 @@
             </xsl:call-template>
             <xsl:call-template name="bibid">
                 <xsl:with-param name="fragment" select="record" />
-            </xsl:call-template>
-            <xsl:call-template name="group_id">
-                <xsl:with-param name="fragment" select="record"/>
             </xsl:call-template>
             <xsl:call-template name="container_id">
                 <xsl:with-param name="fragment" select="record" />
@@ -300,56 +293,57 @@
         CALLED NAMED TEMPLATES
         ======================-->
 
+    <xsl:template name="id_type">
+        <xsl:param name="fragment" />
+        <field name="id">
+            <xsl:value-of select="$fragment/myDocID" />
+        </field>
+        <field name="recordtype">marc</field>
+    </xsl:template>
 
+    <!-- codes: language / country of origin of publication -->
+    <xsl:template name="lang_country">
+        <xsl:param name="fragment" />
+    </xsl:template>
+    
     <!-- classifications -->
     <xsl:template name="classifications">
         <xsl:param name="fragment" />
-
         <!-- subject category codes (MARC field 072) -->
-        <!-- todo: wie kann ich Namen über Variablen definieren
+
+        <!-- todo  wie kann ich Feldnamen aus Variablen bilden-->
         <xsl:for-each select="$fragment/datafield[@tag='072']/subfield[@code='a']">
             <xsl:variable name="source" select="following-sibling::subfield[@code='2']/text()" />
             <field name="{concat('classif_', $source)}">
                 <xsl:value-of select="." />
             </field>
-
         </xsl:for-each>
-        -->
+
+
+
+
         <!-- UDC fields, standard and non-standard (11.10.2012 / osc) -->
-        <!-- solved
         <xsl:for-each select="$fragment/datafield[@tag='080']/subfield[@code='a']">
             <field name="classif_udc">
                 <xsl:value-of select="concat(., following-sibling::subfield[@code='x'][1], following-sibling::subfield[@code='x'][2], following-sibling::subfield[@code='x'][3])" />
             </field>
         </xsl:for-each>
-        -->
-        <!--
         <xsl:for-each select="$fragment/datafield[@tag='690'][@ind2='7'][matches(descendant::subfield[@code='2'][1],'^snl local', 'i')]/subfield[@code='u']">
             <field name="classif_udc">
                 <xsl:value-of select="." />
             </field>            
         </xsl:for-each>
-
-        -->
-
-        <!--
-
         <xsl:for-each select="$fragment/datafield[@tag='909'][@ind2='7'][matches(descendant::subfield[@code='2'][1], 'sb_xxxx', 'i')]/subfield[@code='c']">
             <field name="classif_udc">
                 <xsl:value-of select="." />
             </field>
         </xsl:for-each>
-        -->
-
         <!-- DDC fields, standard and non-standard (11.10.2012 / osc) -->
-        <!--
-        done: look at sandbox/classif_ddc.xml
         <xsl:for-each select="$fragment/datafield[@tag='082']/subfield[@code='a']">
             <field name="classif_ddc">
                 <xsl:value-of select="." />
             </field>
         </xsl:for-each>
-        -->
         <xsl:for-each select="$fragment/datafield[@tag='909'][@ind2='7'][matches(descendant::subfield[@code='2'][1], 'sb_2001', 'i')]/subfield[@code='c']">)">
             <field name="classif_ddc">
                 <xsl:value-of select="." />
@@ -413,6 +407,9 @@
                     </xsl:when>
                     <xsl:when test="matches(., '^[A|B|C][\D][\W][\D].*')"> <!-- Takes care of normal case "CA/CH 37.5 fr" => "37.5" -->
                         <xsl:value-of select="concat(replace(., '^([A|B|C][\D]*[\s])([\d]{1,2}[.]?[\d]{0,2})([\s]?.*)$', '$2'), '##xx##')" />
+                    </xsl:when>
+                    <xsl:when test="matches(., '^A[\s][\d]{1,2}.*')"> <!-- Takes care of irregular case of Bundesverwaltungsgericht "A 7.3 h" => "7.3" -->
+                        <xsl:value-of select="concat(replace(., '^(A[\s])([\d]{1,2}[.]?[\d]{0,2})([\s]?.*)$', '$2'), '##xx##')" />
                     </xsl:when>
                 </xsl:choose>
             </xsl:for-each>
@@ -1014,6 +1011,25 @@
             <xsl:with-param name="fieldname" select="'format_str_mv'" />
             <xsl:with-param name="fieldValues" select="$uniqueSeqValues" />
         </xsl:call-template>
+        <!-- format field for hierarchical facet (898c) -->
+        <xsl:variable name="forDeduplication">
+            <xsl:for-each select="$fragment/datafield[@tag='898']/subfield[@code='c']">
+                <xsl:choose>
+                    <xsl:when test="matches(., '^X[KL]010000')">
+                        <xsl:value-of select="concat('0/', substring(., 1,4), '/', '##xx##')" />
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="concat('0/', substring(., 1,4), '/', '##xx##')" />
+                        <xsl:value-of select="concat('1/', substring(., 1,4), '/', substring(., 5,4), '/', '##xx##')" />
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:variable name="uniqueSeqValues" select="swissbib:startDeduplication($forDeduplication)"/>
+        <xsl:call-template name="createUniqueFields">
+            <xsl:with-param name="fieldname" select="'format_hierarchy_str_mv'" />
+            <xsl:with-param name="fieldValues" select="$uniqueSeqValues" />
+        </xsl:call-template>
         <!-- IDS specific codes (source: 906/907 or 9013) -->
         <xsl:variable name="forDeduplication">
             <xsl:for-each select="$fragment/datafield[@tag='908']/subfield">
@@ -1109,21 +1125,7 @@
             </field>
         </xsl:for-each>        
     </xsl:template>
-    
-    <xsl:template name="group_id">
-        <xsl:param name="fragment"/>
-        <xsl:variable name="forDeduplication">
-            <xsl:for-each select="$fragment/datafield[@tag='986']/subfield[@code='b']">
-                <xsl:value-of select="concat(., '##xx##')" /> 
-            </xsl:for-each>        
-        </xsl:variable>
-        <xsl:variable name="uniqueSeqValues" select="swissbib:startDeduplication($forDeduplication)"/>
-        <xsl:call-template name="createUniqueFields">
-            <xsl:with-param name="fieldname" select="'groupid_isn_mv'"/>
-            <xsl:with-param name="fieldValues" select="$uniqueSeqValues"/>
-        </xsl:call-template>
-    </xsl:template> 
-    
+
     <!-- formerly 'slinkarticle', indexed to link articles from journal 
           @todo necessary in VuFind? -->
     <xsl:template name="container_id">
@@ -1154,7 +1156,8 @@
                               $fragment/hierarchy_parent_id |
                               $fragment/hierarchy_parent_title |
                               $fragment/title_in_hierarchy |
-                              $fragment/hierarchy_sequence">
+                              $fragment/hierarchy_sequence |
+                              $fragment/groupid_isn_mv">
             <xsl:variable name="fieldname" select="name()" />
             <field name="{$fieldname}">
                 <xsl:copy-of select="text()" />
@@ -1215,15 +1218,20 @@
             <xsl:with-param name="fieldname" select="'institution'"/>
             <xsl:with-param name="fieldValues" select="$uniqueSeqValues"/>
         </xsl:call-template>
-    </xsl:template> 
-    
+    </xsl:template>
+
     <xsl:template name="e_institution">
         <xsl:param name="fragment" />
         <xsl:variable name="forDeduplication">
             <xsl:for-each select="$fragment/branchlib">
-                <xsl:if test="matches(., 'A145|B405|B406|B407|FREE')">
-                    <xsl:value-of select="concat(., '##xx##')" />
-                </xsl:if>
+                <xsl:choose>
+                    <xsl:when test="matches(., 'A145|B405|B406|B407')">
+                        <xsl:value-of select="concat(., '##xx##')" />
+                    </xsl:when>
+                    <xsl:when test="matches(., 'FREE|BORIS|RETROS')">
+                        <xsl:text>FREE##xx##</xsl:text>
+                    </xsl:when>
+                </xsl:choose>
             </xsl:for-each>
         </xsl:variable>
         <xsl:variable name="uniqueSeqValues" select="swissbib:startDeduplication($forDeduplication)"/>
@@ -1471,6 +1479,9 @@
             </xsl:for-each>
             <xsl:for-each select="$fragment/datafield[@tag='509']/subfield[@code='r']">
                 <xsl:value-of select="concat(., '##xx##')" />  
+            </xsl:for-each>
+            <xsl:for-each select="$fragment/datafield[@tag='510']/subfield[@code='a']">
+                <xsl:value-of select="concat(., '##xx##')" />
             </xsl:for-each>
             <xsl:for-each select="$fragment/datafield[@tag='511']/subfield[@code='a']">
                 <xsl:value-of select="concat(., '##xx##')" />  

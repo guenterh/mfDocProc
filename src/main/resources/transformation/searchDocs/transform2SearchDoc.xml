@@ -2,105 +2,33 @@
 
 <metamorph xmlns="http://www.culturegraph.org/metamorph" version="1">
 
+
+
 	<macros>
 		<!-- define macros if needed -->
+
 
 	</macros>
 
 
 	<rules>
 
-		<data source="001" name="@id" />
 
+		<data source="001" name="@id" />
 		<data name="id" source="@id"  />
 
 		<data source="_id" name="recordtype">
 			<constant value="marc"/>
 		</data>
 
-		<entity name="language[]" flushWith="record">
-			<data source="0410 .a|041  .a" >
-				<blacklist>
-					<entry name="und"/>
-					<entry name="||"/>
-				</blacklist>
-				<regexp match="(^...$|^..$|^.$)"  />
-			</data>
 
-			<data source="008" >
-				<substring start="35" end="38"/>
-				<blacklist>
-					<entry name="und"/>
-					<entry name="||"/>
-				</blacklist>
-
-			</data>
-
-		</entity>
-		<entity name="origcountry_isn_mv[]" flushWith="record" >
-			<data source="008" >
-				<substring start="15" end="18"/>
-			</data>
-			<data source="044*.a" />
-		</entity>
-
-		<!-- Classifications -->
-
-		<entity name="classif_912[]" flushWith="record">
-			<data source="912*.a" />
-		</entity>
-
-
-
-
-		<!-- UDC fields, standard and non-standard (11.10.2012 / osc) -->
-
-		<!--Recursion at the beginning perhaps it might make sense to refactor all such recursions just at the beginning or into a seperate file-->
-		<!-- quetsions
-			- why indicators with ?? and not '*' - is there a differne in behaviour?
-		-->
-		<concat name="@080" delimiter="" flushWith="080??" reset="true" >
-			<data source="080??.a" />
-			<data source="080??.x" />
-		</concat>
-
-
-		<entity name="classif_udc[]" flushWith="record">
-			<combine name="" value="${080}" >
-				<data source="@080" name="080"/>
-			</combine>
-
-			<combine name="" value="${690u}"  flushWith="690??" reset="true">
-				<if>
-					<data source="690?7.2">
-						<case to="lower"/>
-						<regexp match="^snl local"/>
-					</data>
-
-				</if>
-				<data source="690?7.u" name="690u" />
-
-			</combine>
-			<combine name="" value="${909c}" flushWith="909??" reset="true">
-				<if>
-					<data source="909?7.2">
-						<case to="lower"/>
-						<regexp  match="sb_xxxx" />
-					</data>
-				</if>
-				<data source="909?7.c" name="909c"/>
-			</combine>
-
-
-		</entity>
-
-
-
-
-
-
-		<!--<data source="_else"/>-->
 
 	</rules>
+
+	<include xmlns="http://www.w3.org/2001/XInclude" href="morph/classification.xml" parse="xml"/>
+
+	<include xmlns="http://www.w3.org/2001/XInclude" href="morph/language_country.xml" parse="xml"/>
+
+
 
 </metamorph>

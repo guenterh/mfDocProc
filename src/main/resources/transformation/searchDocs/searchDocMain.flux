@@ -1,5 +1,4 @@
-//default file = FLUX_DIR + "data/correctMarcXML.xml";
-default file = FLUX_DIR + "data/classif_912.xml";
+default file = FLUX_DIR + "data/allMarc.xml";
 
 file|
 open-file|
