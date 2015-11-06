@@ -29,6 +29,7 @@
 
 	<include xmlns="http://www.w3.org/2001/XInclude" href="morph/language_country.xml" parse="xml"/>
 
+	<include xmlns="http://www.w3.org/2001/XInclude" href="morph/author_morph.xml" parse="xml"/>
 
 
 </metamorph>
