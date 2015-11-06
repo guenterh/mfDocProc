@@ -32,9 +32,22 @@
     </datafield>
     <datafield tag="100" ind1="2" ind2=" ">
         <subfield code="a">Author 100</subfield>
+        <subfield code="D">Vorname Author 100</subfield>
     </datafield>
     <datafield tag="110" ind1="2" ind2=" ">
-        <subfield code="a">Author 110</subfield>
+        <subfield code="a">Nr.1: Author 110</subfield>
+    </datafield>
+
+    <datafield tag="110" ind1="2" ind2=" ">
+        <subfield code="a">Nr.2: Author 110</subfield>
+        <subfield code="b">subfield b</subfield>
+        <subfield code="b">subfield b</subfield>
+    </datafield>
+
+    <datafield tag="111" ind1="2" ind2=" ">
+        <subfield code="a">Nr.1: Author 111</subfield>
+        <subfield code="e">subfield e</subfield>
+        <subfield code="e">subfield e</subfield>
     </datafield>
 
     <datafield tag="210" ind1="0" ind2=" ">
@@ -71,16 +84,35 @@
         <subfield code="u">udc aus 690 u</subfield>
     </datafield>
     <datafield tag="700" ind1="2" ind2=" ">
-        <subfield code="a">Author 700</subfield>
+        <subfield code="a">Author 700 Feld [forme avant 2007] 1 ohne D mit replace pattern</subfield>
     </datafield>
 
     <datafield tag="800" ind1="2" ind2=" ">
         <subfield code="a">Author [forme avant 2007] 800</subfield>
     </datafield>
 
+    <datafield tag="700" ind1="2" ind2=" ">
+        <subfield code="a">Author 700</subfield>
+        <subfield code="D">Vorname Author 700</subfield>
+    </datafield>
+
     <datafield tag="710" ind1="2" ind2=" ">
         <subfield code="a">Author 710</subfield>
     </datafield>
+
+    <datafield tag="800" ind1="2" ind2=" ">
+        <subfield code="a">1. Author 800 ohne D</subfield>
+    </datafield>
+
+    <datafield tag="800" ind1="2" ind2=" ">
+        <subfield code="a">2. Author 800 ohne D</subfield>
+    </datafield>
+
+    <datafield tag="800" ind1="2" ind2=" ">
+        <subfield code="a">3. Author 800 mit D</subfield>
+        <subfield code="D">Vorname Author 800</subfield>
+    </datafield>
+
     <datafield tag="810" ind1="2" ind2=" ">
         <subfield code="a">Author 810</subfield>
     </datafield>
@@ -90,15 +122,19 @@
     </datafield>
 
     <datafield tag="880" ind1=" " ind2=" ">
-        <subfield code="a">author von [forme avant 2007] 880 with correct match in code 6</subfield>
-        <subfield code="6">110</subfield>
+        <subfield code="a">[forme avant 2007] 880 with code 6 700</subfield>
+        <subfield code="6">700</subfield>
     </datafield>
 
     <datafield tag="880" ind1=" " ind2=" ">
-        <subfield code="a">no correct regex in code 6 for this field</subfield>
-        <subfield code="6">711</subfield>
+        <subfield code="a">880 with code 6 800</subfield>
+        <subfield code="6">800</subfield>
     </datafield>
 
+    <datafield tag="880" ind1=" " ind2=" ">
+        <subfield code="a">[forme avant 2007] 880 with code 6 700</subfield>
+        <subfield code="6">710</subfield>
+    </datafield>
 
     <datafield tag="950" ind1=" " ind2=" ">
         <subfield code="B">SNL</subfield>
