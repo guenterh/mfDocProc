@@ -15,7 +15,7 @@
 		<concat name="" delimiter="" flushWith="080??" reset="true" >
 			<data source="080??.a" />
 			<data source="080??.x" >
-				<occurrence only="lessThan 4"/>
+				<occurrence only="lessThen 4"/>
 			</data>
 		</concat>
 

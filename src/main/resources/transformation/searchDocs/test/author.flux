@@ -1,4 +1,6 @@
-default file = FLUX_DIR + "../data/author.xml";
+//default file = FLUX_DIR + "../data/author.xml";
+//default file = FLUX_DIR + "testData/author.100.700.800.xml";
+default file = FLUX_DIR + "testData/author.880.950.xml";
 
 file|
 open-file|
