@@ -212,10 +212,10 @@
         </datafield>
         <datafield tag="950" ind1=" " ind2=" ">
             <subfield code="B">SNL</subfield>
-            <subfield code="P">775</subfield>
+            <subfield code="P">hier passt der regex aber nicht</subfield>
             <subfield code="E">0-</subfield>
             <subfield code="t">Jahrbuch / Pro Radio</subfield>
-            <subfield code="x">0478-328X</subfield>
+            <subfield code="x">findet mich das Glück - warum?</subfield>
         </datafield>
         <datafield tag="090" ind1=" " ind2=" ">
             <subfield code="a">P 20379a</subfield>

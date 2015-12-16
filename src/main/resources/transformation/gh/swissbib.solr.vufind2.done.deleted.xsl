@@ -314,25 +314,6 @@
     <xsl:template name="authors">
         <xsl:param name="fragment" />
 
-        <xsl:variable name="forDeduplication">
-            <xsl:for-each select="$fragment/datafield[matches(@tag, '100|700|800')]/subfield[matches(@code, '[b-su-z8]')] |
-                                  $fragment/datafield[@tag='950'][matches(child::subfield[@code='P'], '100|700|800')]/subfield[matches(@code, '[b-su-z]')]">
-                <xsl:value-of select="concat(., '##xx##')" />
-            </xsl:for-each>
-            <xsl:for-each select="$fragment/datafield[matches(@tag, '110|710|810')]/subfield[matches(@code, '[c-su-z]')] |
-                                  $fragment/datafield[@tag='950'][matches(child::subfield[@code='P'], '110|710|810')]/subfield[matches(@code, '[c-su-z]')]">
-                <xsl:value-of select="concat(., '##xx##')" />
-            </xsl:for-each>
-            <xsl:for-each select="$fragment/datafield[matches(@tag, '111|711|811')]/subfield[matches(@code, '[b-df-su-z]')] |
-                                  $fragment/datafield[@tag='950'][matches(child::subfield[@code='P'], '111|711|811')]/subfield[matches(@code, '[b-df-su-z]')]">
-                <xsl:value-of select="concat(., '##xx##')" />
-            </xsl:for-each>
-        </xsl:variable>
-        <xsl:variable name="uniqueSeqValues" select="swissbib:startDeduplication($forDeduplication)"/>
-        <xsl:call-template name="createUniqueFields">
-            <xsl:with-param name="fieldname" select="'author_additional'"/>
-            <xsl:with-param name="fieldValues" select="$uniqueSeqValues"/>
-        </xsl:call-template>
         <!-- added entries for IDSBB DSV11 -->
         <!-- authors -->
         <xsl:for-each select="$fragment/datafield[@tag='950'][matches(child::subfield[@code='B'], 'IDSBB')][matches(child::subfield[@code='P'], '100|700')]/subfield[@code='a']">
