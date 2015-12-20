@@ -211,6 +211,15 @@
             <subfield code="a">Pro Radio</subfield>
         </datafield>
         <datafield tag="950" ind1=" " ind2=" ">
+            <subfield code="B">RERO</subfield>
+            <subfield code="P">711</subfield>
+            <subfield code="E">4-</subfield>
+            <subfield code="c">711 in P match in c</subfield>
+            <subfield code="e">711 in P kein match in e</subfield>
+            <subfield code="j">711 in P kein match in e jedoch in j</subfield>
+        </datafield>
+
+        <datafield tag="950" ind1=" " ind2=" ">
             <subfield code="B">SNL</subfield>
             <subfield code="P">hier passt der regex aber nicht</subfield>
             <subfield code="E">0-</subfield>

@@ -1,4 +1,3 @@
-<?xml version="1.0"?>
 <collection xmlns="http://www.loc.gov/MARC21/slim" >
     <record type="Bibliographic">
     <leader> cam a22 7 4500</leader>
@@ -39,55 +38,48 @@
         <subfield code="u">http://books.google.ch/books?vid=BCUL1092241355</subfield>
         <subfield code="z">Extraits?</subfield>
     </datafield>
-    <datafield tag="880" ind1=" " ind2=" ">
-        <subfield code="B">RERO</subfield>
-        <subfield code="P">100</subfield>
-        <subfield code="6">110</subfield>
-        <subfield code="a">880a mit subcode 6 looks up 110 gh</subfield>
-        <subfield code="b">subfield b</subfield>
-        <subfield code="b">subfield b doppelt</subfield>
-        <subfield code="d">1838-1913</subfield>
-    </datafield>
-    <datafield tag="880" ind1=" " ind2=" ">
-        <subfield code="B">RERO</subfield>
-        <subfield code="P">100</subfield>
-        <subfield code="6">710</subfield>
-        <subfield code="a">880a mit subcode 6 looks up 710</subfield>
-        <subfield code="b">subfield b</subfield>
-        <subfield code="b">subfield b doppelt</subfield>
-        <subfield code="d">1838-1913</subfield>
-    </datafield>
     <datafield tag="950" ind1=" " ind2=" ">
         <subfield code="B">RERO</subfield>
-        <subfield code="P">700</subfield>
-        <subfield code="6">110</subfield>
-        <subfield code="a">950a mit subcode 6 700</subfield>
-        <subfield code="D">subfield D</subfield>
-        <subfield code="D">subfield D 2. subfield sollte nicht genmmen werden</subfield>
-        <subfield code="d">1838-1913</subfield>
-    </datafield>
-    <datafield tag="950" ind1=" " ind2=" ">
-        <subfield code="B">RERO</subfield>
-        <subfield code="P">700</subfield>
-        <subfield code="6">800</subfield>
-        <subfield code="a">950a mit subcode 6 800 sollte nicht genommen werden</subfield>
-        <subfield code="D">subfield D</subfield>
-        <subfield code="d">1838-1913</subfield>
-    </datafield>
-    <datafield tag="950" ind1=" " ind2=" ">
-        <subfield code="B">RERO</subfield>
-        <subfield code="P">100</subfield>
+        <subfield code="P">111</subfield>
         <subfield code="E">1-</subfield>
         <subfield code="a">Asser</subfield>
+        <subfield code="W">gross w sollte nicht geommen werden</subfield>
+        <subfield code="w">klein w ist ok</subfield>
         <subfield code="D">Tobias Michael Carel</subfield>
         <subfield code="d">1838-1913</subfield>
     </datafield>
     <datafield tag="950" ind1=" " ind2=" ">
         <subfield code="B">RERO</subfield>
-        <subfield code="P">856</subfield>
+        <subfield code="P">111</subfield>
         <subfield code="E">4-</subfield>
+        <subfield code="c">subfield c in 950</subfield>
         <subfield code="u">http://books.google.ch/books?vid=BCUL1092241355</subfield>
         <subfield code="z">Extraits?</subfield>
+    </datafield>
+    <datafield tag="950" ind1=" " ind2=" ">
+        <subfield code="B">RERO</subfield>
+        <subfield code="P">100</subfield>
+        <subfield code="E">4-</subfield>
+        <subfield code="c">subfield c in 950 match 100</subfield>
+        <subfield code="u">950 match 100 subfield u</subfield>
+        <subfield code="z">Extraits?</subfield>
+    </datafield>
+    <datafield tag="950" ind1=" " ind2=" ">
+        <subfield code="B">RERO</subfield>
+        <subfield code="P">100</subfield>
+        <subfield code="E">4-</subfield>
+        <subfield code="c">subfield c in 950 match 100</subfield>
+        <subfield code="u">950 match 100 subfield u</subfield>
+        <subfield code="z">Extraits?</subfield>
+        <subfield code="8">subfield 8 in 100 erlaubt</subfield>
+    </datafield>
+    <datafield tag="950" ind1=" " ind2=" ">
+        <subfield code="B">RERO</subfield>
+        <subfield code="P">711</subfield>
+        <subfield code="E">4-</subfield>
+        <subfield code="c">711 in P match in c</subfield>
+        <subfield code="e">711 in P kein match in e</subfield>
+        <subfield code="j">711 in P kein match in e jedoch in j</subfield>
     </datafield>
     <datafield tag="898" ind1=" " ind2=" ">
         <subfield code="a">BK020000</subfield>
