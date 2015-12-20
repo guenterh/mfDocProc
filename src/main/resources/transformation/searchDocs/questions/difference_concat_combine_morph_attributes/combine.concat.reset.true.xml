@@ -1,0 +1,14 @@
+<collection xmlns="http://www.loc.gov/MARC21/slim" >
+    <record type="Bibliographic">
+    <datafield tag="950" ind1=" " ind2=" ">
+        <subfield code="B">RERO</subfield>
+        <subfield code="P">111</subfield>
+        <subfield code="E">1-</subfield>
+        <subfield code="a">Asser</subfield>
+        <subfield code="W">gross w sollte nicht geommen werden</subfield>
+        <subfield code="w">klein w ist ok</subfield>
+        <subfield code="D">Tobias Michael Carel</subfield>
+        <subfield code="d">1838-1913</subfield>
+    </datafield>
+</record>
+</collection>
